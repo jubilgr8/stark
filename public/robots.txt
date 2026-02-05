@@ -1,0 +1,9 @@
+# robots.txt for S.T.A.R.K. Industries AI Fashion Intelligence Platform
+# https://stark.ind.in
+
+User-agent: *
+Allow: /
+Disallow: /node_modules/
+
+# Sitemap location
+Sitemap: https://stark.ind.in/sitemap.xml

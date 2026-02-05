@@ -5,12 +5,226 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="S.T.A.R.K. Industries - AI Fashion Intelligence Platform. Virtual try-on, smart styling, and connected fashion ecosystem."
-    />
-    <title>S.T.A.R.K. Industries</title>
+    
+    <!-- Primary Meta Tags (Requirements 1.1, 1.2) -->
+    <title>S.T.A.R.K. Industries | AI Fashion Intelligence India</title>
+    <meta name="description" content="Transform your fashion business with AI-powered styling, virtual try-on & smart manufacturing. Join India's leading fashion tech platform today!" />
+    
+    <!-- Open Graph Meta Tags (Requirements 1.3, 1.7) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://stark.ind.in/" />
+    <meta property="og:title" content="S.T.A.R.K. Industries | AI Fashion Intelligence India" />
+    <meta property="og:description" content="Transform your fashion business with AI-powered styling, virtual try-on & smart manufacturing. Join India's leading fashion tech platform today!" />
+    <meta property="og:image" content="https://stark.ind.in/og-image.png" />
+    <meta property="og:site_name" content="S.T.A.R.K. Industries" />
+    
+    <!-- Twitter Card Meta Tags (Requirements 1.4) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="S.T.A.R.K. Industries | AI Fashion Intelligence India" />
+    <meta name="twitter:description" content="Transform your fashion business with AI-powered styling, virtual try-on & smart manufacturing. Join India's leading fashion tech platform today!" />
+    <meta name="twitter:image" content="https://stark.ind.in/og-image.png" />
+    
+    <!-- Technical SEO Meta Tags (Requirements 1.5, 1.6, 3.4) -->
+    <link rel="canonical" href="https://stark.ind.in/" />
+    <meta name="robots" content="index, follow" />
+    <link rel="alternate" hreflang="en-IN" href="https://stark.ind.in/" />
+    
+    <!-- Geo Targeting Meta Tags for India (Requirements 6.2) -->
+    <meta name="geo.region" content="IN" />
+    <meta name="geo.placename" content="India" />
+    
+    <!-- Performance Optimizations: Preconnect (Requirements 4.5) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" />
+    
+    <!-- Performance Optimizations: Preload Critical Resources (Requirements 4.5) -->
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script" />
+    
+    <!-- Performance Optimizations: DNS Prefetch (Requirements 4.1) -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
+    <link rel="dns-prefetch" href="https://schema.org" />
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- JSON-LD Structured Data (Requirements 2.1-2.6) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://stark.ind.in/#organization",
+          "name": "S.T.A.R.K. Industries",
+          "url": "https://stark.ind.in",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://stark.ind.in/logo.png",
+            "width": 512,
+            "height": 512
+          },
+          "description": "AI Fashion Intelligence Platform - Transforming India's fashion industry with cutting-edge artificial intelligence solutions for styling, manufacturing, and retail.",
+          "sameAs": [
+            "https://twitter.com/starkindustries",
+            "https://linkedin.com/company/stark-industries-india",
+            "https://instagram.com/stark.industries.india"
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "IN",
+            "addressRegion": "India"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://stark.ind.in/#website",
+          "url": "https://stark.ind.in",
+          "name": "S.T.A.R.K. Industries",
+          "description": "AI Fashion Intelligence Platform India",
+          "publisher": {
+            "@id": "https://stark.ind.in/#organization"
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://stark.ind.in/?search={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://stark.ind.in/#platform",
+          "name": "S.T.A.R.K. AI Fashion Platform",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web Browser",
+          "description": "Comprehensive AI-powered fashion intelligence platform featuring virtual styling, smart manufacturing, and retail analytics.",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "INR",
+            "availability": "https://schema.org/InStock"
+          },
+          "provider": {
+            "@id": "https://stark.ind.in/#organization"
+          }
+        },
+        {
+          "@type": "Product",
+          "@id": "https://stark.ind.in/#jarvis",
+          "name": "JARVIS - AI Fashion Stylist",
+          "description": "Personal AI styling assistant that provides personalized fashion recommendations based on body type, preferences, and occasions.",
+          "category": "AI Styling Software",
+          "brand": {
+            "@id": "https://stark.ind.in/#organization"
+          }
+        },
+        {
+          "@type": "Product",
+          "@id": "https://stark.ind.in/#friday",
+          "name": "FRIDAY - Virtual Try-On System",
+          "description": "Advanced virtual try-on technology enabling customers to visualize clothing on their digital avatar before purchase.",
+          "category": "Virtual Reality Fashion Software",
+          "brand": {
+            "@id": "https://stark.ind.in/#organization"
+          }
+        },
+        {
+          "@type": "Product",
+          "@id": "https://stark.ind.in/#tadashi",
+          "name": "TADASHI - Smart Manufacturing AI",
+          "description": "AI-powered manufacturing optimization system for pattern making, fabric cutting, and production workflow management.",
+          "category": "Manufacturing Automation Software",
+          "brand": {
+            "@id": "https://stark.ind.in/#organization"
+          }
+        },
+        {
+          "@type": "Product",
+          "@id": "https://stark.ind.in/#edith",
+          "name": "EDITH - Fashion Analytics Engine",
+          "description": "Intelligent analytics platform providing trend forecasting, inventory optimization, and customer behavior insights.",
+          "category": "Business Intelligence Software",
+          "brand": {
+            "@id": "https://stark.ind.in/#organization"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://stark.ind.in/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is S.T.A.R.K. Industries AI Fashion Platform?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "S.T.A.R.K. Industries is India's leading AI Fashion Intelligence Platform that combines artificial intelligence with fashion technology. Our suite includes JARVIS for personal styling, FRIDAY for virtual try-on, TADASHI for smart manufacturing, and EDITH for fashion analytics."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does the AI styling assistant JARVIS work?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "JARVIS analyzes your body measurements, style preferences, and occasion requirements to provide personalized fashion recommendations. It uses machine learning to understand your taste and suggests outfits that match your unique style profile."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is the platform available for businesses in India?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, S.T.A.R.K. Industries primarily serves the Indian fashion market. Our platform is designed for fashion retailers, manufacturers, and brands looking to leverage AI technology to enhance their operations and customer experience."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is TADASHI smart manufacturing?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "TADASHI is our AI-powered manufacturing solution that optimizes pattern making, fabric cutting, and production workflows. It helps fashion manufacturers reduce waste, improve efficiency, and maintain quality control through intelligent automation."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How can I get started with S.T.A.R.K. Industries?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can get started by visiting our website at stark.ind.in and exploring our AI solutions. Contact our team for a demo of JARVIS, FRIDAY, TADASHI, or EDITH to see how AI can transform your fashion business."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://stark.ind.in/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://stark.ind.in/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "AI Solutions",
+              "item": "https://stark.ind.in/#solutions"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Products",
+              "item": "https://stark.ind.in/#products"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

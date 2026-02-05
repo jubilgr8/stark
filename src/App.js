@@ -3,7 +3,7 @@ import { Download, Menu, Link as LinkIcon, User, Plus, Disc, ChevronRight, Mail,
 
 // --- Components ---
 const Navbar = ({ onNavigate, activeSection }) => (
-  <nav className="fixed top-0 left-0 right-0 flex flex-col md:flex-row items-center justify-between px-4 py-3 md:px-6 md:py-4 max-w-[1920px] mx-auto w-full z-50 h-auto min-h-[60px] shrink-0 gap-2 md:gap-0">
+  <nav role="navigation" aria-label="Main navigation" className="fixed top-0 left-0 right-0 flex flex-col md:flex-row items-center justify-between px-4 py-3 md:px-6 md:py-4 max-w-[1920px] mx-auto w-full z-50 h-auto min-h-[60px] shrink-0 gap-2 md:gap-0">
     {/* Left Logo / Link Icon */}
     <div className="hidden lg:flex flex-col items-center justify-center border-2 border-black rounded-full w-10 py-4 absolute left-6 top-6 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-white">
       <LinkIcon size={16} className="text-black mb-2" />
@@ -113,13 +113,13 @@ const TypingHeadline = ({ text }) => {
   }, [text]);
 
   return (
-    <div className="flex flex-col items-start font-black uppercase text-[#4A0404] font-['Oswald'] drop-shadow-sm select-none leading-[0.9] tracking-tighter">
-      <div className="text-[clamp(2.5rem,9vw,6rem)] xl:text-[7rem] whitespace-pre-wrap min-h-[3.6em]">
+    <h1 className="flex flex-col items-start font-black uppercase text-[#4A0404] font-['Oswald'] drop-shadow-sm select-none leading-[0.9] tracking-tighter">
+      <span className="text-[clamp(2.5rem,9vw,6rem)] xl:text-[7rem] whitespace-pre-wrap min-h-[3.6em]">
         {displayedText}
         <span className={`inline-block w-2 md:w-4 h-[0.7em] bg-[#D90429] align-baseline ml-1 md:ml-2 ${isTyping ? 'animate-pulse' : 'hidden'
           }`}></span>
-      </div>
-    </div>
+      </span>
+    </h1>
   );
 };
 
@@ -189,7 +189,8 @@ const SystemNodeCard = ({ number, title, subtitle, desc, features, delay, target
               <div className={`relative rounded-xl overflow-hidden border-2 border-[#D90429]/30 group-hover:border-[#D90429] transition-colors ${isLight ? 'bg-white' : 'bg-black/50'} shadow-inner flex-1 flex items-center justify-center min-h-0 max-h-[600px]`}>
                 <img
                   src={imageSlides ? imageSlides[currentSlide] : (imageSrc || `${process.env.PUBLIC_URL}/jarvis_demo_v2.gif`)}
-                  alt="System Visualization"
+                  alt={`${title} - ${imageLabel || 'System Visualization'}: ${subtitle}`}
+                  loading="lazy"
                   className={`max-w-full max-h-full object-contain transition-all duration-700 ${imageSlides ? 'animate-fade-in' : 'transform group-hover:scale-105'}`}
                   key={currentSlide}
                   style={{
@@ -291,7 +292,7 @@ const SystemNodeCard = ({ number, title, subtitle, desc, features, delay, target
 };
 
 const SystemNodesSection = React.forwardRef((props, ref) => (
-  <section ref={ref} className="bg-[#050101] text-white py-24 px-4 md:px-8 lg:px-24 relative overflow-hidden">
+  <section ref={ref} role="region" aria-labelledby="system-nodes-heading" className="bg-[#050101] text-white py-24 px-4 md:px-8 lg:px-24 relative overflow-hidden">
     {/* Dynamic Grid Background */}
     <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none opacity-50"></div>
 
@@ -301,7 +302,7 @@ const SystemNodesSection = React.forwardRef((props, ref) => (
         <div className="inline-block text-[#D90429] font-mono text-xs tracking-[0.4em] mb-6 animate-pulse">
           INTELLIGENT ECOSYSTEM // SYSTEM NODES
         </div>
-        <h2 className="text-5xl md:text-7xl lg:text-8xl font-black font-['Oswald'] uppercase leading-[0.85] tracking-tighter mb-8">
+        <h2 id="system-nodes-heading" className="text-5xl md:text-7xl lg:text-8xl font-black font-['Oswald'] uppercase leading-[0.85] tracking-tighter mb-8">
           Our AI<br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-800">Applications.</span>
         </h2>
@@ -475,13 +476,13 @@ const ServicesSection = React.forwardRef((props, ref) => {
   };
 
   return (
-    <section ref={ref} className="bg-[#FDFBF7] py-24 px-4 md:px-8 lg:px-24 border-t-2 border-black">
+    <section ref={ref} role="region" aria-labelledby="services-heading" className="bg-[#FDFBF7] py-24 px-4 md:px-8 lg:px-24 border-t-2 border-black">
       <div className="max-w-[1920px] mx-auto">
         <div className="flex flex-col md:flex-row gap-12">
           {/* Sidebar / Tabs */}
           <div className="w-full md:w-1/3 lg:w-1/4">
             <div className="mb-8">
-              <h2 className="text-4xl font-black font-['Oswald'] uppercase leading-none mb-2 text-[#4A0404]">
+              <h2 id="services-heading" className="text-4xl font-black font-['Oswald'] uppercase leading-none mb-2 text-[#4A0404]">
                 Operational<br />Capabilities
               </h2>
               <div className="h-1 w-20 bg-black"></div>
@@ -567,12 +568,12 @@ const PricingCard = ({ title, subtitle, price, features, isAvailable, delay }) =
 );
 
 const PricingSection = React.forwardRef((props, ref) => (
-  <section ref={ref} className="bg-[#0f0505] text-white py-24 px-4 md:px-8 lg:px-24 relative overflow-hidden border-t border-white/10">
+  <section ref={ref} role="region" aria-labelledby="pricing-heading" className="bg-[#0f0505] text-white py-24 px-4 md:px-8 lg:px-24 relative overflow-hidden border-t border-white/10">
     <div className="max-w-[1920px] mx-auto relative z-10">
       <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
         <div>
           <div className="text-[#D90429] font-mono text-xs tracking-[0.3em] mb-4">ACCESS TIERS</div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black font-['Oswald'] uppercase leading-none">
+          <h2 id="pricing-heading" className="text-4xl md:text-5xl lg:text-6xl font-black font-['Oswald'] uppercase leading-none">
             Select Your<br />Protocol.
           </h2>
         </div>
@@ -630,12 +631,12 @@ const PricingSection = React.forwardRef((props, ref) => (
 
 // --- Contact Section ---
 const ContactSection = React.forwardRef((props, ref) => (
-  <section ref={ref} className="bg-[#FDFBF7] text-black py-24 px-4 md:px-8 lg:px-24 border-t-2 border-black relative">
+  <section ref={ref} role="region" aria-labelledby="contact-heading" className="bg-[#FDFBF7] text-black py-24 px-4 md:px-8 lg:px-24 border-t-2 border-black relative">
     <div className="max-w-[1920px] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-32">
       {/* Left Info Column */}
       <div className="w-full lg:w-1/3">
         <div className="mb-10">
-          <h2 className="text-4xl font-black font-['Oswald'] uppercase leading-none mb-2 text-[#4A0404]">
+          <h2 id="contact-heading" className="text-4xl font-black font-['Oswald'] uppercase leading-none mb-2 text-[#4A0404]">
             Signal<br />Transmission
           </h2>
           <div className="h-1 w-20 bg-black mb-6"></div>
@@ -711,10 +712,10 @@ const ContactSection = React.forwardRef((props, ref) => (
           <div className="inline-block text-[#D90429] font-mono text-xs tracking-[0.4em] mb-6 animate-pulse">
             S.T.A.R.K. INDUSTRIES // CORE INFRASTRUCTURE
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black font-['Oswald'] uppercase leading-[0.85] tracking-tighter mb-8">
+          <h3 className="text-4xl md:text-5xl lg:text-6xl font-black font-['Oswald'] uppercase leading-[0.85] tracking-tighter mb-8">
             Smart Tailoring And <br />
             <span className="text-[#D90429]">Retail Kouture.</span>
-          </h2>
+          </h3>
           <p className="text-gray-700 text-lg max-w-2xl leading-relaxed border-l-4 border-[#D90429] pl-6 mb-8">
             We are not just digitizing fashion. We are teaching intelligence to fashion. Building the world's first end-to-end, intelligence-driven operating system.
           </p>
@@ -752,13 +753,13 @@ const ContactSection = React.forwardRef((props, ref) => (
       </div>
     </div>
 
-    <div className="max-w-[1920px] mx-auto pt-8 border-t border-black/10 flex flex-col md:flex-row justify-between items-center text-[10px] font-mono uppercase tracking-widest text-gray-400 gap-4">
+    <footer role="contentinfo" className="max-w-[1920px] mx-auto pt-8 border-t border-black/10 flex flex-col md:flex-row justify-between items-center text-[10px] font-mono uppercase tracking-widest text-gray-400 gap-4">
       <span>© 2025 S.T.A.R.K. INDUSTRIES. All Systems Nominal.</span>
-      <div className="flex gap-6">
+      <nav aria-label="Footer navigation" className="flex gap-6">
         <span className="cursor-pointer hover:text-black">Privacy Protocol</span>
         <span className="cursor-pointer hover:text-black">Terms of Operation</span>
-      </div>
-    </div>
+      </nav>
+    </footer>
   </section>
 ));
 
@@ -913,10 +914,12 @@ export default function FashionLandingPage() {
         </div>
       </div>
 
-      <Navbar onNavigate={handleNavigate} activeSection={activeSection} />
+      <header role="banner">
+        <Navbar onNavigate={handleNavigate} activeSection={activeSection} />
+      </header>
 
       {/* Main Content Area - Layout allows growing/scrolling */}
-      <main className="flex-1 w-full max-w-[1920px] mx-auto relative px-4 md:px-8 lg:px-24 grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <main role="main" aria-label="Hero section" className="flex-1 w-full max-w-[1920px] mx-auto relative px-4 md:px-8 lg:px-24 grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Left Column: Text */}
         <div className="z-20 flex flex-col justify-center lg:justify-start pt-4 lg:pt-12 pb-4 lg:pb-12 order-1 lg:order-1">
           <div className="relative">
@@ -942,7 +945,7 @@ export default function FashionLandingPage() {
             <img
               key={`left-${currentSlide}`}
               src={left}
-              alt="AI Model Left"
+              alt="AI Fashion Model showcasing outfit - left view"
               className="absolute left-0 h-full w-auto object-contain object-bottom mask-image-bottom transition-all duration-700 z-0 animate-fade-in"
               style={{
                 filter: 'contrast(1.1) saturate(0.9)',
@@ -955,7 +958,7 @@ export default function FashionLandingPage() {
             <img
               key={`right-${currentSlide}`}
               src={right}
-              alt="AI Model Right"
+              alt="AI Fashion Model showcasing outfit - right view"
               className="absolute right-0 h-full w-auto object-contain object-bottom mask-image-bottom transition-all duration-700 z-0 animate-fade-in"
               style={{
                 filter: 'contrast(1.1) saturate(0.9)',
@@ -969,7 +972,7 @@ export default function FashionLandingPage() {
               <img
                 key={`center-${currentSlide}`}
                 src={center}
-                alt="AI Model Center"
+                alt="AI Fashion Model showcasing outfit - main view with interactive styling hotspots"
                 className="w-auto object-contain object-bottom mask-image-bottom drop-shadow-2xl transition-all duration-700 animate-fade-in"
                 style={{
                   filter: 'contrast(1.1) saturate(0.9)',
@@ -1051,7 +1054,7 @@ export default function FashionLandingPage() {
                 <div className="w-1.5 h-1.5 bg-[#D90429] rounded-full animate-pulse"></div>
                 Motion V.2
               </div>
-              <h2 className="text-xl md:text-3xl lg:text-5xl font-black font-['Oswald'] leading-[0.9] uppercase tracking-tighter">
+              <h2 className="text-xl md:text-3xl lg:text-5xl font-black font-['Oswald'] leading-[0.9] uppercase tracking-tighter" aria-label="Style in seconds, powered by AI">
                 Style in seconds.<br />
                 <span className="text-white/50">Powered by AI.</span>
               </h2>
