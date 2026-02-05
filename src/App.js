@@ -784,9 +784,9 @@ export default function FashionLandingPage() {
   const prevSlide = () => setCurrentSlide(prev => (prev - 1 + 2) % 2);
 
   const slideData = [
-    { left: '/IMG_003.png', center: '/IMG_001.png', right: '/IMG_002.png', showHotspots: true, scale: 1, markers: [], sideStyle: {} },
+    { left: `${process.env.PUBLIC_URL}/IMG_003.png`, center: `${process.env.PUBLIC_URL}/IMG_001.png`, right: `${process.env.PUBLIC_URL}/IMG_002.png`, showHotspots: true, scale: 1, markers: [], sideStyle: {} },
     {
-      left: '/4.png', center: '/5.png', right: '/6.png', showHotspots: false, scale: 1.08, sideStyle: { top: '-64px' },
+      left: `${process.env.PUBLIC_URL}/4.png`, center: `${process.env.PUBLIC_URL}/5.png`, right: `${process.env.PUBLIC_URL}/6.png`, showHotspots: false, scale: 1.08, sideStyle: { top: '-64px' },
       markers: [
         // Image 4 (Left) - Short Sleeves / Oversized
         { x: 8, y: 40, label: "Short Sleeves" },
