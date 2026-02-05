@@ -10,15 +10,6 @@ const Navbar = ({ onNavigate, activeSection }) => (
       <span className="writing-vertical text-[8px] font-bold tracking-widest uppercase py-2">S.T.A.R.K.</span>
     </div>
 
-    {/* Mobile Header Row */}
-    <div className="md:hidden flex items-center justify-between w-full">
-      <div className="font-black text-lg tracking-tight font-['Oswald'] uppercase">S.T.A.R.K. Industries</div>
-      <div className="flex items-center gap-2 font-bold text-[8px] text-[#D90429] uppercase tracking-wider bg-red-50 px-2 py-1 rounded-full border border-red-100">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#D90429] animate-pulse"></span>
-        COMING SOON
-      </div>
-    </div>
-
     {/* Mobile Nav Pills */}
     <div className="md:hidden flex items-center bg-white border-2 border-black rounded-full p-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] w-full overflow-x-auto">
       {['HOME', 'ABOUT', 'SERVICES', 'PRICING', 'CONTACT'].map((item) => (
@@ -299,8 +290,8 @@ const SystemNodeCard = ({ number, title, subtitle, desc, features, delay, target
   );
 };
 
-const SystemNodesSection = () => (
-  <section className="bg-[#050101] text-white py-24 px-4 md:px-8 lg:px-24 relative overflow-hidden">
+const SystemNodesSection = React.forwardRef((props, ref) => (
+  <section ref={ref} className="bg-[#050101] text-white py-24 px-4 md:px-8 lg:px-24 relative overflow-hidden">
     {/* Dynamic Grid Background */}
     <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none opacity-50"></div>
 
@@ -443,7 +434,7 @@ const SystemNodesSection = () => (
       </div>
     </div>
   </section>
-);
+));
 
 // --- Services Section Components ---
 const ServiceCard = ({ icon: Icon, title, desc }) => (
@@ -767,6 +758,7 @@ export default function FashionLandingPage() {
   const [activeProducts, setActiveProducts] = useState([]);
   const [modelLoaded, setModelLoaded] = useState(false);
   const [activeSection, setActiveSection] = useState('HOME');
+  const aboutRef = useRef(null);
   const servicesRef = useRef(null);
   const pricingRef = useRef(null);
   const contactRef = useRef(null);
@@ -824,6 +816,8 @@ export default function FashionLandingPage() {
     setActiveSection(item);
     if (item === 'HOME') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (item === 'ABOUT' && aboutRef.current) {
+      aboutRef.current.scrollIntoView({ behavior: 'smooth' });
     } else if (item === 'SERVICES' && servicesRef.current) {
       servicesRef.current.scrollIntoView({ behavior: 'smooth' });
     } else if (item === 'PRICING' && pricingRef.current) {
@@ -834,7 +828,7 @@ export default function FashionLandingPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#FDFBF7] text-black font-sans selection:bg-[#D90429] selection:text-white overflow-x-hidden flex flex-col relative pt-[100px] md:pt-[70px]">
+    <div className="min-h-screen w-full bg-[#FDFBF7] text-black font-sans selection:bg-[#D90429] selection:text-white overflow-x-hidden flex flex-col relative pt-[50px] md:pt-[70px]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oswald:wght@500;700&display=swap');
         .writing-vertical { writing-mode: vertical-rl; text-orientation: mixed; }
@@ -1078,7 +1072,7 @@ export default function FashionLandingPage() {
       </div>
 
       {/* --- SYS.NODES Section --- */}
-      <SystemNodesSection />
+      <SystemNodesSection ref={aboutRef} />
 
       {/* --- Services Section (New) --- */}
       <ServicesSection ref={servicesRef} />
