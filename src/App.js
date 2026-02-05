@@ -949,12 +949,12 @@ export default function FashionLandingPage() {
           }`}>
           <div className={`relative w-full h-[clamp(25rem,60vw,45rem)] xl:h-[50rem] lg:h-auto flex items-end justify-center lg:justify-end overflow-visible ${modelLoaded ? 'animate-model-entry' : ''
             }`}>
-            {/* Left Side Image */}
+            {/* Left Side Image - Hidden on mobile */}
             <img
               key={`left-${currentSlide}`}
               src={left}
               alt="AI Model Left"
-              className="absolute left-0 h-full w-auto object-cover object-bottom opacity-40 lg:opacity-100 mix-blend-multiply lg:mix-blend-normal grayscale-[20%] lg:grayscale-0 mask-image-bottom transition-all duration-700 z-0 animate-fade-in"
+              className="absolute left-0 h-full w-auto object-cover object-bottom hidden lg:block mask-image-bottom transition-all duration-700 z-0 animate-fade-in"
               style={{
                 filter: 'contrast(1.1) saturate(0.9)',
                 transform: 'translateX(-5%)',
@@ -962,12 +962,12 @@ export default function FashionLandingPage() {
               }}
             />
 
-            {/* Right Side Image */}
+            {/* Right Side Image - Hidden on mobile */}
             <img
               key={`right-${currentSlide}`}
               src={right}
               alt="AI Model Right"
-              className="absolute right-0 h-full w-auto object-cover object-bottom opacity-40 lg:opacity-100 mix-blend-multiply lg:mix-blend-normal grayscale-[20%] lg:grayscale-0 mask-image-bottom transition-all duration-700 z-0 animate-fade-in"
+              className="absolute right-0 h-full w-auto object-cover object-bottom hidden lg:block mask-image-bottom transition-all duration-700 z-0 animate-fade-in"
               style={{
                 filter: 'contrast(1.1) saturate(0.9)',
                 transform: 'translateX(5%)',
@@ -981,7 +981,7 @@ export default function FashionLandingPage() {
                 key={`center-${currentSlide}`}
                 src={center}
                 alt="AI Model Center"
-                className="w-auto object-contain object-bottom mask-image-bottom drop-shadow-2xl opacity-40 lg:opacity-100 mix-blend-multiply lg:mix-blend-normal grayscale-[20%] lg:grayscale-0 transition-all duration-700 animate-fade-in"
+                className="w-auto object-contain object-bottom mask-image-bottom drop-shadow-2xl opacity-30 lg:opacity-100 mix-blend-multiply lg:mix-blend-normal grayscale-[30%] lg:grayscale-0 transition-all duration-700 animate-fade-in"
                 style={{
                   filter: 'contrast(1.1) saturate(0.9)',
                   height: '100%',
@@ -991,9 +991,9 @@ export default function FashionLandingPage() {
                 }}
               />
 
-              {/* Hotspots - Only for Slide 0 */}
+              {/* Hotspots - Only for Slide 0, hidden on mobile */}
               {showHotspots && (
-                <div className="absolute inset-0 pointer-events-auto">
+                <div className="absolute inset-0 pointer-events-auto hidden lg:block">
                   <ProductTag
                     x={55} y={35}
                     title="Structured Blazer"
@@ -1032,8 +1032,8 @@ export default function FashionLandingPage() {
               )}
             </div>
 
-            {/* Manual Navigation Controls */}
-            <div className="absolute inset-0 pointer-events-none flex items-center justify-between px-4 z-20">
+            {/* Manual Navigation Controls - Hidden on mobile */}
+            <div className="absolute inset-0 pointer-events-none hidden lg:flex items-center justify-between px-4 z-20">
               <button
                 onClick={prevSlide}
                 className="pointer-events-auto w-10 h-10 md:w-12 md:h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white transition-all hover:scale-110 active:scale-95 group"
