@@ -2,31 +2,51 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Download, Menu, Link as LinkIcon, User, Plus, Disc, ChevronRight, Mail, ArrowDown, Layers, Scissors, Palette, ShoppingBag, Check, Lock, Send, MapPin, Globe } from 'lucide-react';
 
 // --- Components ---
-const Navbar = ({ onNavigate }) => (
-  <nav className="flex items-center justify-between px-4 py-3 md:px-6 md:py-4 max-w-[1920px] mx-auto w-full z-50 relative h-auto min-h-[60px] shrink-0">
+const Navbar = ({ onNavigate, activeSection }) => (
+  <nav className="fixed top-0 left-0 right-0 flex flex-col md:flex-row items-center justify-between px-4 py-3 md:px-6 md:py-4 max-w-[1920px] mx-auto w-full z-50 h-auto min-h-[60px] shrink-0 gap-2 md:gap-0">
     {/* Left Logo / Link Icon */}
     <div className="hidden lg:flex flex-col items-center justify-center border-2 border-black rounded-full w-10 py-4 absolute left-6 top-6 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-white">
       <LinkIcon size={16} className="text-black mb-2" />
-      <span className="writing-vertical text-[8px] font-bold tracking-widest uppercase py-2">Loop/Chan</span>
+      <span className="writing-vertical text-[8px] font-bold tracking-widest uppercase py-2">S.T.A.R.K.</span>
     </div>
 
-    {/* Center Nav */}
-    <div className="flex-1 flex justify-start lg:justify-start lg:pl-24 items-center">
-      <div className="hidden md:flex items-center bg-white border-2 border-black rounded-full p-1 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] scale-90 md:scale-100 origin-left">
-        {['HOME', 'ABOUT', 'SERVICES', 'PRICING', 'CONTACT'].map((item, idx) => (
+    {/* Mobile Header Row */}
+    <div className="md:hidden flex items-center justify-between w-full">
+      <div className="font-black text-lg tracking-tight font-['Oswald'] uppercase">S.T.A.R.K. Industries</div>
+      <div className="flex items-center gap-2 font-bold text-[8px] text-[#D90429] uppercase tracking-wider bg-red-50 px-2 py-1 rounded-full border border-red-100">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#D90429] animate-pulse"></span>
+        COMING SOON
+      </div>
+    </div>
+
+    {/* Mobile Nav Pills */}
+    <div className="md:hidden flex items-center bg-white border-2 border-black rounded-full p-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] w-full overflow-x-auto">
+      {['HOME', 'ABOUT', 'SERVICES', 'PRICING', 'CONTACT'].map((item) => (
+        <button
+          key={item}
+          onClick={() => onNavigate(item)}
+          className={`px-3 py-1 rounded-full text-[9px] font-bold transition-all tracking-wider whitespace-nowrap flex-1 ${activeSection === item ? 'bg-[#4A0404] text-white' : 'hover:bg-gray-100 text-black'
+            }`}
+        >
+          {item}
+        </button>
+      ))}
+    </div>
+
+    {/* Desktop Nav */}
+    <div className="flex-1 hidden md:flex justify-start lg:pl-24 items-center">
+      <div className="flex items-center bg-white border-2 border-black rounded-full p-1 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] scale-90 md:scale-100 origin-left">
+        {['HOME', 'ABOUT', 'SERVICES', 'PRICING', 'CONTACT'].map((item) => (
           <button
             key={item}
             onClick={() => onNavigate(item)}
-            className={`px-3 md:px-5 py-1.5 rounded-full text-[10px] md:text-xs font-bold transition-all tracking-wider ${idx === 0 ? 'bg-[#4A0404] text-white' : 'hover:bg-gray-100 text-black'
+            className={`px-3 md:px-5 py-1.5 rounded-full text-[10px] md:text-xs font-bold transition-all tracking-wider ${activeSection === item ? 'bg-[#4A0404] text-white' : 'hover:bg-gray-100 text-black'
               }`}
           >
             {item}
           </button>
         ))}
       </div>
-
-      {/* Mobile Logo Fallback */}
-      <div className="md:hidden font-black text-xl tracking-tighter">AI.STYLIST</div>
 
       <div className="hidden sm:flex items-center gap-2 font-bold text-[9px] md:text-[10px] text-[#D90429] uppercase tracking-wider ml-4 md:ml-6 bg-red-50 px-3 py-1 rounded-full border border-red-100 whitespace-nowrap">
         <span className="w-1.5 h-1.5 rounded-full bg-[#D90429] animate-pulse"></span>
@@ -38,10 +58,6 @@ const Navbar = ({ onNavigate }) => (
     <div className="hidden lg:flex items-center justify-center border-2 border-black rounded-full w-10 h-10 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-white absolute right-6 top-6">
       <User size={16} />
     </div>
-
-    <button className="lg:hidden p-2 border-2 border-black rounded-lg ml-auto">
-      <Menu size={20} />
-    </button>
   </nav>
 );
 
@@ -750,6 +766,7 @@ const ContactSection = React.forwardRef((props, ref) => (
 export default function FashionLandingPage() {
   const [activeProducts, setActiveProducts] = useState([]);
   const [modelLoaded, setModelLoaded] = useState(false);
+  const [activeSection, setActiveSection] = useState('HOME');
   const servicesRef = useRef(null);
   const pricingRef = useRef(null);
   const contactRef = useRef(null);
@@ -786,22 +803,12 @@ export default function FashionLandingPage() {
   const slideData = [
     { left: `${process.env.PUBLIC_URL}/IMG_003.png`, center: `${process.env.PUBLIC_URL}/IMG_001.png`, right: `${process.env.PUBLIC_URL}/IMG_002.png`, showHotspots: true, scale: 1, markers: [], sideStyle: {} },
     {
-      left: `${process.env.PUBLIC_URL}/4.png`, center: `${process.env.PUBLIC_URL}/5.png`, right: `${process.env.PUBLIC_URL}/6.png`, showHotspots: false, scale: 1.08, sideStyle: { top: '-64px' },
+      left: `${process.env.PUBLIC_URL}/4.png`, center: `${process.env.PUBLIC_URL}/5.png`, right: `${process.env.PUBLIC_URL}/6.png`, showHotspots: false, scale: 1, sideStyle: {},
       markers: [
-        // Image 4 (Left) - Short Sleeves / Oversized
-        { x: 8, y: 40, label: "Short Sleeves" },
-        { x: 16, y: 45, label: "Oversized Design" },
-        { x: 14, y: 58, label: "Oversized Trouser" },
-
         // Image 5 (Center) - Floral / Short Pants
         { x: 48, y: 35, label: "Floral Signature" },
         { x: 52, y: 45, label: "Relaxed Fit" },
-        { x: 50, y: 65, label: "Short Pants" },
-
-        // Image 6 (Right) - Full Sleeves / Slim
-        { x: 92, y: 42, label: "Full Sleeves" },
-        { x: 84, y: 45, label: "Slim Cut Structure" },
-        { x: 86, y: 58, label: "Tapered Pant" }
+        { x: 50, y: 65, label: "Short Pants" }
       ]
     }
   ];
@@ -814,7 +821,10 @@ export default function FashionLandingPage() {
   };
 
   const handleNavigate = (item) => {
-    if (item === 'SERVICES' && servicesRef.current) {
+    setActiveSection(item);
+    if (item === 'HOME') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (item === 'SERVICES' && servicesRef.current) {
       servicesRef.current.scrollIntoView({ behavior: 'smooth' });
     } else if (item === 'PRICING' && pricingRef.current) {
       pricingRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -824,7 +834,7 @@ export default function FashionLandingPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#FDFBF7] text-black font-sans selection:bg-[#D90429] selection:text-white overflow-x-hidden flex flex-col relative">
+    <div className="min-h-screen w-full bg-[#FDFBF7] text-black font-sans selection:bg-[#D90429] selection:text-white overflow-x-hidden flex flex-col relative pt-[100px] md:pt-[70px]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oswald:wght@500;700&display=swap');
         .writing-vertical { writing-mode: vertical-rl; text-orientation: mixed; }
@@ -900,61 +910,37 @@ export default function FashionLandingPage() {
         </div>
       </div>
 
-      <Navbar onNavigate={handleNavigate} />
+      <Navbar onNavigate={handleNavigate} activeSection={activeSection} />
 
       {/* Main Content Area - Layout allows growing/scrolling */}
       <main className="flex-1 w-full max-w-[1920px] mx-auto relative px-4 md:px-8 lg:px-24 grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Left Column: Text & Widget */}
-        {/* Added padding bottom to prevent text hitting the banner on small screens */}
-        <div className="z-20 flex flex-col justify-center lg:justify-start pt-8 lg:pt-12 pb-12 pointer-events-none lg:pointer-events-auto order-2 lg:order-1">
-          <div className="relative pointer-events-auto">
+        {/* Left Column: Text */}
+        <div className="z-20 flex flex-col justify-center lg:justify-start pt-4 lg:pt-12 pb-4 lg:pb-12 order-1 lg:order-1">
+          <div className="relative">
             <div className="inline-block bg-[#D90429] text-white text-[9px] md:text-[10px] font-bold px-2 py-0.5 md:px-3 md:py-1 rounded-full mb-2 md:mb-4 animate-fade-in tracking-widest shadow-lg">
               LAUNCHING SOON
             </div>
             <TypingHeadline text={`JUST A\nRATHER VERY\nINTELLIGENT\nSTYLIST.`} />
           </div>
 
-          <div className="pointer-events-auto max-w-[280px] md:max-w-md mt-4 relative pl-4 border-l-4 border-[#4A0404] animate-fade-in" style={{ animationDelay: '0.8s' }}>
+          <div className="max-w-[280px] md:max-w-md mt-4 relative pl-4 border-l-4 border-[#4A0404] animate-fade-in" style={{ animationDelay: '0.8s' }}>
             <p className="text-[10px] md:text-xs font-bold text-gray-800 leading-relaxed uppercase tracking-wide">
               Create unique digital looks. Personalize the trends, and transform your wardrobe.
             </p>
           </div>
-
-          {/* Widget - Avatar System */}
-          <div className="pointer-events-auto mt-6 bg-white border-2 border-black rounded-[1.2rem] md:rounded-[2rem] p-2 pr-4 flex items-center gap-3 w-fit shadow-[4px_4px_0px_0px_rgba(74,4,4,1)] transform hover:-translate-y-1 transition-transform cursor-pointer group animate-fade-in" style={{ animationDelay: '1.2s' }}>
-            <div className="w-10 h-10 md:w-14 md:h-14 rounded-lg md:rounded-xl overflow-hidden bg-gradient-to-br from-[#4A0404] to-[#D90429] relative shrink-0 flex items-center justify-center">
-              <div className="relative">
-                <User size={16} className="text-white" />
-                {/* 8-direction dots around the user icon */}
-                <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-white rounded-full animate-pulse"></div>
-                <div className="absolute -right-1 top-1/2 -translate-y-1/2 w-1 h-1 bg-white rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-white rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-                <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-1 h-1 bg-white rounded-full animate-pulse" style={{ animationDelay: '0.6s' }}></div>
-              </div>
-            </div>
-            <div>
-              <div className="flex items-center justify-between mb-0.5">
-                <span className="bg-blue-100 border border-blue-300 text-[6px] md:text-[8px] px-2 py-0.5 rounded-full text-blue-700 font-bold tracking-wider uppercase">
-                  Avatar
-                </span>
-              </div>
-              <div className="text-xl md:text-2xl font-black font-['Oswald'] text-[#4A0404] leading-none">8D</div>
-              <div className="text-[6px] md:text-[8px] font-bold leading-tight text-gray-400 uppercase mt-0.5">Capture System</div>
-            </div>
-          </div>
         </div>
 
         {/* Right Column: Model */}
-        <div className={`absolute lg:relative inset-0 lg:inset-auto z-0 lg:z-10 flex items-center justify-center lg:justify-end transition-opacity duration-1000 order-1 lg:order-2 ${modelLoaded ? 'opacity-100' : 'opacity-0'
+        <div className={`relative lg:relative z-10 flex items-center justify-center lg:justify-end transition-opacity duration-1000 order-2 lg:order-2 ${modelLoaded ? 'opacity-100' : 'opacity-0'
           }`}>
-          <div className={`relative w-full h-[clamp(25rem,60vw,45rem)] xl:h-[50rem] lg:h-auto flex items-end justify-center lg:justify-end overflow-visible ${modelLoaded ? 'animate-model-entry' : ''
+          <div className={`relative w-full h-[clamp(22rem,55vw,45rem)] xl:h-[50rem] flex items-end justify-center lg:justify-end overflow-visible ${modelLoaded ? 'animate-model-entry' : ''
             }`}>
-            {/* Left Side Image - Hidden on mobile */}
+            {/* Left Side Image */}
             <img
               key={`left-${currentSlide}`}
               src={left}
               alt="AI Model Left"
-              className="absolute left-0 h-full w-auto object-cover object-bottom hidden lg:block mask-image-bottom transition-all duration-700 z-0 animate-fade-in"
+              className="absolute left-0 h-full w-auto object-contain object-bottom mask-image-bottom transition-all duration-700 z-0 animate-fade-in"
               style={{
                 filter: 'contrast(1.1) saturate(0.9)',
                 transform: 'translateX(-5%)',
@@ -962,12 +948,12 @@ export default function FashionLandingPage() {
               }}
             />
 
-            {/* Right Side Image - Hidden on mobile */}
+            {/* Right Side Image */}
             <img
               key={`right-${currentSlide}`}
               src={right}
               alt="AI Model Right"
-              className="absolute right-0 h-full w-auto object-cover object-bottom hidden lg:block mask-image-bottom transition-all duration-700 z-0 animate-fade-in"
+              className="absolute right-0 h-full w-auto object-contain object-bottom mask-image-bottom transition-all duration-700 z-0 animate-fade-in"
               style={{
                 filter: 'contrast(1.1) saturate(0.9)',
                 transform: 'translateX(5%)',
@@ -981,7 +967,7 @@ export default function FashionLandingPage() {
                 key={`center-${currentSlide}`}
                 src={center}
                 alt="AI Model Center"
-                className="w-auto object-contain object-bottom mask-image-bottom drop-shadow-2xl opacity-30 lg:opacity-100 mix-blend-multiply lg:mix-blend-normal grayscale-[30%] lg:grayscale-0 transition-all duration-700 animate-fade-in"
+                className="w-auto object-contain object-bottom mask-image-bottom drop-shadow-2xl transition-all duration-700 animate-fade-in"
                 style={{
                   filter: 'contrast(1.1) saturate(0.9)',
                   height: '100%',
@@ -991,9 +977,9 @@ export default function FashionLandingPage() {
                 }}
               />
 
-              {/* Hotspots - Only for Slide 0, hidden on mobile */}
+              {/* Hotspots - Only for Slide 0 */}
               {showHotspots && (
-                <div className="absolute inset-0 pointer-events-auto hidden lg:block">
+                <div className="absolute inset-0 pointer-events-auto">
                   <ProductTag
                     x={55} y={35}
                     title="Structured Blazer"
@@ -1015,7 +1001,7 @@ export default function FashionLandingPage() {
 
               {/* Dynamic Markers for Slide 1+ */}
               {markers && markers.length > 0 && (
-                <div className="absolute inset-0 pointer-events-auto hidden lg:block">
+                <div className="absolute inset-0 pointer-events-auto">
                   {markers.map((marker, idx) => (
                     <ProductTag
                       key={idx}
@@ -1032,8 +1018,8 @@ export default function FashionLandingPage() {
               )}
             </div>
 
-            {/* Manual Navigation Controls - Hidden on mobile */}
-            <div className="absolute inset-0 pointer-events-none hidden lg:flex items-center justify-between px-4 z-20">
+            {/* Manual Navigation Controls */}
+            <div className="absolute inset-0 pointer-events-none flex items-center justify-between px-4 z-20">
               <button
                 onClick={prevSlide}
                 className="pointer-events-auto w-10 h-10 md:w-12 md:h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white transition-all hover:scale-110 active:scale-95 group"
