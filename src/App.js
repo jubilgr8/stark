@@ -181,7 +181,7 @@ const SystemNodeCard = ({ number, title, subtitle, desc, features, delay, target
               </div>
               <div className={`relative rounded-xl overflow-hidden border-2 border-[#D90429]/30 group-hover:border-[#D90429] transition-colors ${isLight ? 'bg-white' : 'bg-black/50'} shadow-inner flex-1 flex items-center justify-center min-h-0 max-h-[600px]`}>
                 <img
-                  src={imageSlides ? imageSlides[currentSlide] : (imageSrc || "/jarvis_demo_v2.gif")}
+                  src={imageSlides ? imageSlides[currentSlide] : (imageSrc || `${process.env.PUBLIC_URL}/jarvis_demo_v2.gif`)}
                   alt="System Visualization"
                   className={`max-w-full max-h-full object-contain transition-all duration-700 ${imageSlides ? 'animate-fade-in' : 'transform group-hover:scale-105'}`}
                   key={currentSlide}
@@ -334,7 +334,7 @@ const SystemNodesSection = () => (
             "Real-time Fabric & Design Visualization",
             "Local Vendor Discovery & Direct Purchase"
           ]}
-          imageSrc="/jarvis_demo_v2.gif"
+          imageSrc={`${process.env.PUBLIC_URL}/jarvis_demo_v2.gif`}
           imageLabel="Personal Design Studio"
           cta="Suit Me Up!"
           delay={0}
@@ -359,7 +359,7 @@ const SystemNodesSection = () => (
               description: "Wholesale buying metrics & trend analysis for smart stock acquisition from internal network."
             }
           ]}
-          imageSrc="/IMG_004.jpeg"
+          imageSrc={`${process.env.PUBLIC_URL}/IMG_004.jpeg`}
           imageLabel="Supply Chain Network"
           cta="Initiate Scan"
           delay={200}
@@ -385,10 +385,10 @@ const SystemNodesSection = () => (
             }
           ]}
           imageSlides={[
-            "/tadashi_v91.jpeg",
-            "/tadashi_v92.jpeg",
-            "/tadashi_v95.jpeg",
-            "/tadashi_v94.jpeg",
+            `${process.env.PUBLIC_URL}/tadashi_v91.jpeg`,
+            `${process.env.PUBLIC_URL}/tadashi_v92.jpeg`,
+            `${process.env.PUBLIC_URL}/tadashi_v95.jpeg`,
+            `${process.env.PUBLIC_URL}/tadashi_v94.jpeg`,
           ]}
           imageLabel="Production Intelligence"
           cta="Initiate Fabrication"
@@ -415,10 +415,10 @@ const SystemNodesSection = () => (
             }
           ]}
           imageSlides={[
-            "/edith_s1.jpeg",
-            "/edith_s2.jpeg",
-            "/edith_s3.jpeg",
-            "/edith_s4.jpeg"
+            `${process.env.PUBLIC_URL}/edith_s1.jpeg`,
+            `${process.env.PUBLIC_URL}/edith_s2.jpeg`,
+            `${process.env.PUBLIC_URL}/edith_s3.jpeg`,
+            `${process.env.PUBLIC_URL}/edith_s4.jpeg`
           ]}
           imageLabel="Design Protection Matrix"
           cta="Secure IP"
