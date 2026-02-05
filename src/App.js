@@ -647,12 +647,18 @@ const ContactSection = React.forwardRef((props, ref) => (
 
       {/* Right Form Column */}
       <div className="flex-1">
-        <form className="space-y-6 max-w-xl">
+        <form 
+          action="https://formspree.io/f/YOUR_FORM_ID" 
+          method="POST"
+          className="space-y-6 max-w-xl"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex flex-col gap-2">
               <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Identity // Name</label>
               <input
                 type="text"
+                name="name"
+                required
                 className="bg-transparent border-2 border-black p-4 font-mono text-sm focus:outline-none focus:bg-white transition-colors"
                 placeholder="ENTER NAME"
               />
@@ -661,6 +667,8 @@ const ContactSection = React.forwardRef((props, ref) => (
               <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Contact // Email</label>
               <input
                 type="email"
+                name="email"
+                required
                 className="bg-transparent border-2 border-black p-4 font-mono text-sm focus:outline-none focus:bg-white transition-colors"
                 placeholder="ENTER EMAIL"
               />
@@ -669,7 +677,7 @@ const ContactSection = React.forwardRef((props, ref) => (
 
           <div className="flex flex-col gap-2">
             <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Sector // Interest</label>
-            <select className="bg-transparent border-2 border-black p-4 font-mono text-sm focus:outline-none focus:bg-white transition-colors appearance-none rounded-none">
+            <select name="interest" className="bg-transparent border-2 border-black p-4 font-mono text-sm focus:outline-none focus:bg-white transition-colors appearance-none rounded-none">
               <option>SELECT PROTOCOL</option>
               <option>Vendor Partnership</option>
               <option>Stylist Access</option>
@@ -682,12 +690,13 @@ const ContactSection = React.forwardRef((props, ref) => (
             <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Transmission // Message</label>
             <textarea
               rows="4"
+              name="message"
               className="bg-transparent border-2 border-black p-4 font-mono text-sm focus:outline-none focus:bg-white transition-colors resize-none"
               placeholder="ENTER MESSAGE TYPE..."
             ></textarea>
           </div>
 
-          <button className="group bg-[#4A0404] text-white w-full py-4 font-bold uppercase tracking-[0.2em] flex items-center justify-center gap-4 hover:bg-black transition-colors duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
+          <button type="submit" className="group bg-[#4A0404] text-white w-full py-4 font-bold uppercase tracking-[0.2em] flex items-center justify-center gap-4 hover:bg-black transition-colors duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
             Transmit Data <Send size={16} className="group-hover:translate-x-1 transition-transform" />
           </button>
         </form>
@@ -1054,7 +1063,9 @@ export default function FashionLandingPage() {
                 Transform the way you dress without limits.
               </p>
               <div className="flex items-center gap-2 md:gap-4">
-                <button className="group bg-white text-[#4A0404] pl-4 pr-1.5 py-1.5 lg:pl-6 lg:pr-2 lg:py-2 rounded-full font-bold flex items-center gap-2 lg:gap-4 hover:bg-gray-100 transition-all hover:scale-105 active:scale-95 shadow-lg">
+                <button 
+                  onClick={() => contactRef.current?.scrollIntoView({ behavior: 'smooth' })}
+                  className="group bg-white text-[#4A0404] pl-4 pr-1.5 py-1.5 lg:pl-6 lg:pr-2 lg:py-2 rounded-full font-bold flex items-center gap-2 lg:gap-4 hover:bg-gray-100 transition-all hover:scale-105 active:scale-95 shadow-lg">
                   <span className="tracking-wider text-[10px] md:text-xs whitespace-nowrap">JOIN WAITLIST</span>
                   <div className="w-6 h-6 lg:w-8 lg:h-8 bg-[#4A0404] rounded-full flex items-center justify-center text-white group-hover:rotate-90 transition-transform duration-300">
                     <Mail size={12} className="lg:w-4 lg:h-4" />
