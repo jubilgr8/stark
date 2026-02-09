@@ -41,6 +41,11 @@
     <!-- Performance Optimizations: Preload Critical Resources (Requirements 4.5) -->
     <link rel="preload" href="https://cdn.tailwindcss.com" as="script" />
     
+    <!-- Preload critical hero images for LCP optimization -->
+    <link rel="preload" href="%PUBLIC_URL%/IMG_001.webp" as="image" type="image/webp" />
+    <link rel="preload" href="%PUBLIC_URL%/IMG_002.webp" as="image" type="image/webp" />
+    <link rel="preload" href="%PUBLIC_URL%/IMG_003.webp" as="image" type="image/webp" />
+    
     <!-- Performance Optimizations: DNS Prefetch (Requirements 4.1) -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />

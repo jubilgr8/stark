@@ -1,6 +1,40 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Download, Menu, Link as LinkIcon, User, Plus, Disc, ChevronRight, Mail, ArrowDown, Layers, Scissors, Palette, ShoppingBag, Check, Lock, Send, MapPin, Globe } from 'lucide-react';
 
+// Optimized Image Component with WebP support and lazy loading
+const OptimizedImage = ({ src, alt, className, style, loading = "lazy", priority = false }) => {
+  // Convert src to webp version
+  const webpSrc = src.replace(/\.(png|jpg|jpeg)$/i, '.webp');
+  const isGif = src.endsWith('.gif');
+  
+  // For GIFs, use original (can't convert to WebP easily)
+  if (isGif) {
+    return (
+      <img
+        src={src}
+        alt={alt}
+        className={className}
+        style={style}
+        loading={priority ? "eager" : loading}
+      />
+    );
+  }
+
+  return (
+    <picture>
+      <source srcSet={webpSrc} type="image/webp" />
+      <img
+        src={src}
+        alt={alt}
+        className={className}
+        style={style}
+        loading={priority ? "eager" : loading}
+        decoding={priority ? "sync" : "async"}
+      />
+    </picture>
+  );
+};
+
 // --- Components ---
 const Navbar = ({ onNavigate, activeSection }) => (
   <nav role="navigation" aria-label="Main navigation" className="fixed top-0 left-0 right-0 flex flex-col md:flex-row items-center justify-between px-4 py-3 md:px-6 md:py-4 max-w-[1920px] mx-auto w-full z-50 h-auto min-h-[60px] shrink-0 gap-2 md:gap-0">
@@ -39,14 +73,14 @@ const Navbar = ({ onNavigate, activeSection }) => (
         ))}
       </div>
 
-      <div className="hidden sm:flex items-center gap-2 font-bold text-[9px] md:text-[10px] text-[#D90429] uppercase tracking-wider ml-4 md:ml-6 bg-red-50 px-3 py-1 rounded-full border border-red-100 whitespace-nowrap">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#D90429] animate-pulse"></span>
+      <div className="hidden sm:flex items-center gap-2 font-bold text-[9px] md:text-[10px] text-[#B80020] uppercase tracking-wider ml-4 md:ml-6 bg-red-50 px-3 py-1 rounded-full border border-red-200 whitespace-nowrap">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#B80020] animate-pulse"></span>
         COMING SOON
       </div>
     </div>
 
     {/* Right User Icon */}
-    <div className="hidden lg:flex items-center justify-center border-2 border-black rounded-full w-10 h-10 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-white absolute right-6 top-6">
+    <div className="hidden lg:flex items-center justify-center border-2 border-black rounded-full w-10 h-10 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-white absolute right-6 top-6" role="button" aria-label="User profile">
       <User size={16} />
     </div>
   </nav>
@@ -187,7 +221,7 @@ const SystemNodeCard = ({ number, title, subtitle, desc, features, delay, target
                 <User size={12} className="animate-pulse" /> {imageLabel || "System Visualization"}
               </div>
               <div className={`relative rounded-xl overflow-hidden border-2 border-[#D90429]/30 group-hover:border-[#D90429] transition-colors ${isLight ? 'bg-white' : 'bg-black/50'} shadow-inner flex-1 flex items-center justify-center min-h-0 max-h-[600px]`}>
-                <img
+                <OptimizedImage
                   src={imageSlides ? imageSlides[currentSlide] : (imageSrc || `${process.env.PUBLIC_URL}/jarvis_demo_v2.gif`)}
                   alt={`${title} - ${imageLabel || 'System Visualization'}: ${subtitle}`}
                   loading="lazy"
@@ -535,16 +569,16 @@ const PricingCard = ({ title, subtitle, price, features, isAvailable, delay }) =
     )}
 
     <div className="mb-8">
-      <div className="font-mono text-gray-500 text-xs mb-2 tracking-widest uppercase">{subtitle}</div>
+      <div className="font-mono text-gray-400 text-xs mb-2 tracking-widest uppercase">{subtitle}</div>
       <h3 className="text-3xl font-black font-['Oswald'] uppercase text-white mb-4">{title}</h3>
       <div className="text-4xl font-bold text-white mb-1 font-mono">{price}</div>
-      {!isAvailable && <div className="text-[10px] text-[#D90429] font-bold uppercase tracking-wider">Coming Q2 2025</div>}
+      {!isAvailable && <div className="text-[10px] text-[#FF6B6B] font-bold uppercase tracking-wider">Coming Q2 2025</div>}
     </div>
 
     <ul className="flex-1 flex flex-col gap-4 mb-8">
       {features.map((feature, idx) => (
-        <li key={idx} className="flex items-start gap-3 text-sm text-gray-400">
-          <Check size={16} className={`shrink-0 ${isAvailable ? 'text-[#D90429]' : 'text-gray-600'}`} />
+        <li key={idx} className="flex items-start gap-3 text-sm text-gray-300">
+          <Check size={16} className={`shrink-0 ${isAvailable ? 'text-[#D90429]' : 'text-gray-500'}`} />
           <span className="leading-tight">{feature}</span>
         </li>
       ))}
@@ -552,10 +586,11 @@ const PricingCard = ({ title, subtitle, price, features, isAvailable, delay }) =
 
     <button
       disabled={!isAvailable}
+      aria-label={isAvailable ? `Join waitlist for ${title}` : `${title} is locked`}
       className={`w-full py-4 text-xs font-bold uppercase tracking-[0.2em] border transition-all duration-300 flex items-center justify-center gap-2
         ${isAvailable
           ? 'bg-white text-black border-white hover:bg-[#D90429] hover:text-white hover:border-[#D90429]'
-          : 'bg-transparent text-gray-600 border-gray-800 cursor-not-allowed'
+          : 'bg-transparent text-gray-500 border-gray-700 cursor-not-allowed'
         }`}
     >
       {isAvailable ? (
@@ -655,8 +690,9 @@ const ContactSection = React.forwardRef((props, ref) => (
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Identity // Name</label>
+              <label htmlFor="name-input" className="text-xs font-bold uppercase tracking-widest text-gray-600">Identity // Name</label>
               <input
+                id="name-input"
                 type="text"
                 name="name"
                 required
@@ -665,8 +701,9 @@ const ContactSection = React.forwardRef((props, ref) => (
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Contact // Email</label>
+              <label htmlFor="email-input" className="text-xs font-bold uppercase tracking-widest text-gray-600">Contact // Email</label>
               <input
+                id="email-input"
                 type="email"
                 name="email"
                 required
@@ -677,8 +714,8 @@ const ContactSection = React.forwardRef((props, ref) => (
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Sector // Interest</label>
-            <select name="interest" className="bg-transparent border-2 border-black p-4 font-mono text-sm focus:outline-none focus:bg-white transition-colors appearance-none rounded-none">
+            <label htmlFor="interest-select" className="text-xs font-bold uppercase tracking-widest text-gray-600">Sector // Interest</label>
+            <select id="interest-select" name="interest" className="bg-transparent border-2 border-black p-4 font-mono text-sm focus:outline-none focus:bg-white transition-colors appearance-none rounded-none">
               <option>SELECT PROTOCOL</option>
               <option>Vendor Partnership</option>
               <option>Stylist Access</option>
@@ -688,8 +725,9 @@ const ContactSection = React.forwardRef((props, ref) => (
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Transmission // Message</label>
+            <label htmlFor="message-input" className="text-xs font-bold uppercase tracking-widest text-gray-600">Transmission // Message</label>
             <textarea
+              id="message-input"
               rows="4"
               name="message"
               className="bg-transparent border-2 border-black p-4 font-mono text-sm focus:outline-none focus:bg-white transition-colors resize-none"
@@ -721,13 +759,13 @@ const ContactSection = React.forwardRef((props, ref) => (
           </p>
           <div className="flex items-center gap-8">
             <div className="text-center">
-              <div className="text-3xl font-black font-['Oswald'] text-black">EST. 2024</div>
-              <div className="text-xs text-[#D90429] uppercase tracking-widest mt-1">Intelligence Division</div>
+              <p className="text-3xl font-black font-['Oswald'] text-black">EST. 2024</p>
+              <p className="text-xs text-[#B80020] uppercase tracking-widest mt-1">Intelligence Division</p>
             </div>
             <div className="h-12 w-[1px] bg-black/20"></div>
             <div className="text-center">
-              <div className="text-3xl font-black font-['Oswald'] text-black">AI-FIRST</div>
-              <div className="text-xs text-gray-500 uppercase tracking-widest mt-1">Fashion Platform</div>
+              <p className="text-3xl font-black font-['Oswald'] text-black">AI-FIRST</p>
+              <p className="text-xs text-gray-600 uppercase tracking-widest mt-1">Fashion Platform</p>
             </div>
           </div>
         </div>
@@ -739,7 +777,7 @@ const ContactSection = React.forwardRef((props, ref) => (
               "If you get it, you belong here."
             </span>
           </div>
-          <div className="mt-8 text-sm text-gray-600 leading-relaxed">
+          <div className="mt-8 text-sm text-gray-700 leading-relaxed">
             <p className="mb-4">
               <strong>Our Mission:</strong> To revolutionize the fashion industry through intelligent automation,
               personalized styling, and seamless integration of design, manufacturing, and retail.
@@ -753,11 +791,11 @@ const ContactSection = React.forwardRef((props, ref) => (
       </div>
     </div>
 
-    <footer role="contentinfo" className="max-w-[1920px] mx-auto pt-8 border-t border-black/10 flex flex-col md:flex-row justify-between items-center text-[10px] font-mono uppercase tracking-widest text-gray-400 gap-4">
+    <footer role="contentinfo" className="max-w-[1920px] mx-auto pt-8 border-t border-black/10 flex flex-col md:flex-row justify-between items-center text-[10px] font-mono uppercase tracking-widest text-gray-600 gap-4">
       <span>© 2025 S.T.A.R.K. INDUSTRIES. All Systems Nominal.</span>
       <nav aria-label="Footer navigation" className="flex gap-6">
-        <span className="cursor-pointer hover:text-black">Privacy Protocol</span>
-        <span className="cursor-pointer hover:text-black">Terms of Operation</span>
+        <a href="#privacy" className="cursor-pointer hover:text-black">Privacy Protocol</a>
+        <a href="#terms" className="cursor-pointer hover:text-black">Terms of Operation</a>
       </nav>
     </footer>
   </section>
@@ -942,7 +980,7 @@ export default function FashionLandingPage() {
           <div className={`relative w-full h-[clamp(22rem,55vw,45rem)] xl:h-[50rem] flex items-end justify-center lg:justify-end overflow-visible ${modelLoaded ? 'animate-model-entry' : ''
             }`}>
             {/* Left Side Image */}
-            <img
+            <OptimizedImage
               key={`left-${currentSlide}`}
               src={left}
               alt="AI Fashion Model showcasing outfit - left view"
@@ -952,10 +990,11 @@ export default function FashionLandingPage() {
                 transform: 'translateX(-5%)',
                 ...sideStyle
               }}
+              priority={currentSlide === 0}
             />
 
             {/* Right Side Image */}
-            <img
+            <OptimizedImage
               key={`right-${currentSlide}`}
               src={right}
               alt="AI Fashion Model showcasing outfit - right view"
@@ -965,11 +1004,12 @@ export default function FashionLandingPage() {
                 transform: 'translateX(5%)',
                 ...sideStyle
               }}
+              priority={currentSlide === 0}
             />
 
             {/* Main Model Image (Center) */}
             <div className="relative z-10 flex items-end justify-center h-full">
-              <img
+              <OptimizedImage
                 key={`center-${currentSlide}`}
                 src={center}
                 alt="AI Fashion Model showcasing outfit - main view with interactive styling hotspots"
@@ -981,6 +1021,7 @@ export default function FashionLandingPage() {
                   transform: `scale(${scale || 1})`,
                   transformOrigin: 'bottom'
                 }}
+                priority={currentSlide === 0}
               />
 
               {/* Hotspots - Only for Slide 0 */}
@@ -1028,12 +1069,14 @@ export default function FashionLandingPage() {
             <div className="absolute inset-0 pointer-events-none flex items-center justify-between px-4 z-20">
               <button
                 onClick={prevSlide}
+                aria-label="Previous slide"
                 className="pointer-events-auto w-10 h-10 md:w-12 md:h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white transition-all hover:scale-110 active:scale-95 group"
               >
                 <ChevronRight size={20} className="rotate-180 group-hover:-translate-x-1 transition-transform" />
               </button>
               <button
                 onClick={nextSlide}
+                aria-label="Next slide"
                 className="pointer-events-auto w-10 h-10 md:w-12 md:h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white transition-all hover:scale-110 active:scale-95 group"
               >
                 <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
